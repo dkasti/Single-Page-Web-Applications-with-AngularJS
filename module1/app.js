@@ -12,17 +12,21 @@ function LunchCheckController($scope) {
 
   $scope.showMessage = function () {
     var dishes = $scope.inputText.split(",");
-    if ($scope.inputText != ""){
+    if ($scope.inputText != "" && !dishes.includes("") && !dishes.includes(" ")){
       console.log(dishes);
+      console.log(dishes.includes(""));
       if(dishes.length <= 3){
         $scope.message = "Enjoy!";
+        $scope.msgColor = "green"
       }
       else {
         $scope.message = "Too much!";
+        $scope.msgColor = "red"
       }
     }
     else {
-      $scope.message = "Please enter data first";
+      $scope.message = "Please enter the data first. Note that it does NOT consider an empty item, i.e., , , as an item towards to the count";
+      $scope.msgColor = "blue"
     }
   };
 }
