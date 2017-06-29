@@ -1,34 +1,34 @@
 (function () {
 'use strict';
 
-angular.module('ShoppingListApp', [])
-.controller('ToBuyListController', ToBuyListController)
-.controller('BoughtListController', BoughtListController)
-.service('ShoppingListService', ShoppingListService);
+angular.module('ShoppingListCheckOff', [])
+.controller('ToBuyController', ToBuyController)
+.controller('AlreadyBoughtController', AlreadyBoughtController)
+.service('ShoppingListCheckOffService', ShoppingListCheckOffService);
 
 // Injections into the controllers
-ToBuyListController.$inject = ['ShoppingListService'];
-BoughtListController.$inject = ['ShoppingListService'];
+ToBuyController.$inject = ['ShoppingListCheckOffService'];
+AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
 
-function ToBuyListController(ShoppingListService) {
+function ToBuyController(ShoppingListCheckOffService) {
   var toBuy = this;
 
-  toBuy.toBuyList = ShoppingListService.getToBuyItems();
+  toBuy.toBuyList = ShoppingListCheckOffService.getToBuyItems();
   toBuy.makeBought = function (itemIndex) {
-    ShoppingListService.addToBought(itemIndex);
-    ShoppingListService.removeFromToBuy(itemIndex);
+    ShoppingListCheckOffService.addToBought(itemIndex);
+    ShoppingListCheckOffService.removeFromToBuy(itemIndex);
     console.log(toBuy.toBuyList, "length = ", toBuy.toBuyList.length);
   };
 }
 
-function BoughtListController(ShoppingListService){
+function AlreadyBoughtController(ShoppingListCheckOffService){
   var showBought = this;
-  showBought.boughtList = ShoppingListService.getBoughtItems();
+  showBought.boughtList = ShoppingListCheckOffService.getBoughtItems();
 
 }
 
-// ShoppingListService
-function ShoppingListService() {
+// ShoppingListCheckOffService
+function ShoppingListCheckOffService() {
   var service = this;
 
   // List of shopping items
@@ -81,6 +81,6 @@ var boughtList = [];
   service.getBoughtItems = function () {
     return boughtList;
   };
-} // End of the ShoppingListService
+} // End of the ShoppingListCheckOffService
 
 })();
